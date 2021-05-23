@@ -24,9 +24,9 @@ public class ArrayDeque<T> {
         return size;
     }
 
-    public void resize(double factor) {
+    private void resize(double factor) {
         int first = (nextFirst + 1) % capacity;
-        int last = nextLast-1 < 0 ? capacity-1 : nextLast-1;
+        int last = nextLast - 1 < 0 ? capacity - 1 : nextLast - 1;
         int capacity_old = capacity;
         capacity = (int) (capacity * factor);
         T[] newArray = (T[]) new Object[capacity];
@@ -46,7 +46,7 @@ public class ArrayDeque<T> {
     public void addFirst(T item) {
         if (size == capacity) resize(2);
         array[nextFirst] = item;
-        nextFirst = nextFirst-1 < 0 ? capacity-1 : nextFirst-1;
+        nextFirst = nextFirst - 1 < 0 ? capacity - 1 : nextFirst - 1;
 //        System.out.println(nextFirst);
         size++;
     }
@@ -74,7 +74,7 @@ public class ArrayDeque<T> {
 
     public T removeLast() {
         if (isEmpty()) return null;
-        int last = nextLast-1 < 0 ? capacity-1 : nextLast-1;
+        int last = nextLast - 1 < 0 ? capacity - 1 : nextLast - 1;
         T temp = array[last];
         array[last] = null;
         nextLast = last;
@@ -94,8 +94,8 @@ public class ArrayDeque<T> {
 
     public void printDeque() {
         int first;
-        int last = nextLast-1 < 0 ? capacity-1 : nextLast-1;
-        for (first=(nextFirst+1)%capacity; first!=last; first=(first+1)%capacity) {
+        int last = nextLast - 1 < 0 ? capacity - 1 : nextLast - 1;
+        for (first = (nextFirst + 1) % capacity; first != last; first = (first + 1) % capacity) {
             System.out.print(array[first] + " ");
         }
         System.out.println(array[first]);
