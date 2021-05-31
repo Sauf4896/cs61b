@@ -57,6 +57,15 @@ public class ArrayMap<K, V> implements Map61B<K, V> {
         values[index] = value;
     }
 
+    public void putWithoutCheck(K key, V value) {
+        if (size == keys.length) {
+            resize(keys.length * 2);
+        }
+        keys[size] = key;
+        values[size] = value;
+        size += 1;
+    }
+
     private void resize(int capacity) {
         K[] newKeys = (K[]) new Object[capacity];
         V[] newValues = (V[]) new Object[capacity];
