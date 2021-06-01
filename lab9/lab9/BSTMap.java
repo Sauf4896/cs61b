@@ -1,5 +1,8 @@
 package lab9;
 
+import edu.princeton.cs.algs4.Stack;
+
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -103,7 +106,11 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
     /* Returns a Set view of the keys contained in this map. */
     @Override
     public Set<K> keySet() {
-        throw new UnsupportedOperationException();
+        Set<K> keyset = new HashSet<>();
+        for (K key : BSTMap.this) {
+            keyset.add(key);
+        }
+        return keyset;
     }
 
     /** Removes KEY from the tree if present
@@ -156,11 +163,35 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
      **/
     @Override
     public V remove(K key, V value) {
-        throw new UnsupportedOperationException();
+        V val= get(key);
+        if (val == null || !val.equals(value)) {
+            return null;
+        }
+        size--;
+        root = removeHelper(key, root);
+        return val;
     }
 
     @Override
     public Iterator<K> iterator() {
-        throw new UnsupportedOperationException();
+        return new preOrderIter();
+    }
+
+    private class preOrderIter implements Iterator<K> {
+        Stack<Node> s = new Stack<>();
+        private preOrderIter() {
+            s.push(root);
+        }
+
+        public boolean hasNext() {
+            return (!s.isEmpty());
+        }
+
+        public K next() {
+            Node p = s.pop();
+            s.push(p.right);
+            s.push(p.left);
+            return p.key;
+        }
     }
 }
