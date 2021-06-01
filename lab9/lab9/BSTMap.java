@@ -189,8 +189,12 @@ public class BSTMap<K extends Comparable<K>, V> implements Map61B<K, V> {
 
         public K next() {
             Node p = s.pop();
-            s.push(p.right);
-            s.push(p.left);
+            if (p.right != null) {
+                s.push(p.right);
+            }
+            if (p.left != null) {
+                s.push(p.left);
+            }
             return p.key;
         }
     }
